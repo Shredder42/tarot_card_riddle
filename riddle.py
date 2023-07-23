@@ -22,10 +22,8 @@ program outline:
 playable_cards = [i for i in range(1, 24)]
 
 def pick_card():
+    # allows player to pick a card
     return int(input('Pick a card from the list of playable cards: '))
-# card = input('Pick a card from the list of playable cards: ')
-
-
 
 def find_factors(card):
     # finds the factors of a card
@@ -34,6 +32,12 @@ def find_factors(card):
         if card % i == 0:
             factors_list.append(i)
     return factors_list
+
+def update_player_cards_and_score(card, player_cards, player_score):
+    player_cards.append(card)
+    player_score += card
+    return player_cards, player_score
+
 
 # def check_for_factors(card, card_list):
 
@@ -44,5 +48,7 @@ if __name__ == '__main__':
     fate_cards = []
     fate_score = 0
     card = pick_card()
+    player_cards, player_score = update_player_cards_and_score(card, player_cards, player_score)
+    print(f'Player cards: {player_cards}. Player score: {player_score}')
     print(playable_cards)
     print(find_factors(10))
