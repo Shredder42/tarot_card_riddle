@@ -43,6 +43,15 @@ def update_fate_cards_and_score(factors_list, fate_score, fate_cards):
     fate_cards += factors_list
     return fate_score, fate_cards
 
+def remove_playable_cards(playable_cards, card, factors_list):
+    playable_cards.remove(card)
+    for item in factors_list:
+        playable_cards.remove(item)
+    return playable_cards
+
+def print_playable_cards(playable_cards):
+    print(f'Playable cards are: {playable_cards}')
+
 
 # def check_for_factors(card, card_list):
 
@@ -52,12 +61,12 @@ if __name__ == '__main__':
     player_cards = 0
     fate_score = 0
     fate_cards = []
+    print_playable_cards(playable_cards)
     card = pick_card()
-    print(type(card))
     factors_list = find_factors(card)
     player_score, player_cards = update_player_score_and_cards(card, player_score, player_cards)
     fate_score, fate_cards = update_fate_cards_and_score(factors_list, fate_score, fate_cards)
     print(f'Player score: {player_score}. Player cards: {player_cards}')
     print(f'Fate score: {fate_score}. Fate cards: {fate_cards}')
-    print(playable_cards)
-    print(find_factors(10))
+    playable_cards = remove_playable_cards(playable_cards, card, factors_list)
+    print_playable_cards(playable_cards)
