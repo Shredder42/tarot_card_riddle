@@ -33,22 +33,31 @@ def find_factors(card):
             factors_list.append(i)
     return factors_list
 
-def update_player_cards_and_score(card, player_cards, player_score):
-    player_cards.append(card)
+def update_player_score_and_cards(card, player_cards, player_score):
     player_score += card
-    return player_cards, player_score
+    player_cards.append(card)
+    return player_score, player_cards
+
+def update_fate_cards_and_score(factors_list, fate_score, fate_cards):
+    fate_score += sum(factors_list)
+    fate_cards += factors_list
+    return fate_score, fate_cards
 
 
 # def check_for_factors(card, card_list):
 
 
 if __name__ == '__main__':
-    player_cards = []
-    player_score = 0
-    fate_cards = []
+    player_score = []
+    player_cards = 0
     fate_score = 0
+    fate_cards = []
     card = pick_card()
-    player_cards, player_score = update_player_cards_and_score(card, player_cards, player_score)
-    print(f'Player cards: {player_cards}. Player score: {player_score}')
+    print(type(card))
+    factors_list = find_factors(card)
+    player_score, player_cards = update_player_score_and_cards(card, player_score, player_cards)
+    fate_score, fate_cards = update_fate_cards_and_score(factors_list, fate_score, fate_cards)
+    print(f'Player score: {player_score}. Player cards: {player_cards}')
+    print(f'Fate score: {fate_score}. Fate cards: {fate_cards}')
     print(playable_cards)
     print(find_factors(10))
