@@ -21,6 +21,12 @@ program outline:
 
 playable_cards = [i for i in range(1, 24)]
 
+def pick_card():
+    return int(input('Pick a card from the list of playable cards: '))
+# card = input('Pick a card from the list of playable cards: ')
+
+
+
 def find_factors(card):
     # finds the factors of a card
     factors_list = []
@@ -29,6 +35,14 @@ def find_factors(card):
             factors_list.append(i)
     return factors_list
 
+# def check_for_factors(card, card_list):
+
+
 if __name__ == '__main__':
+    player_cards = []
+    player_score = 0
+    fate_cards = []
+    fate_score = 0
+    card = pick_card()
     print(playable_cards)
     print(find_factors(10))
