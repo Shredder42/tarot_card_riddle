@@ -17,11 +17,18 @@ program outline:
         * game is over
         * add remaining cards to fate score
         * display socres and results
-
-
-
-
 '''
 
-def find_all_factors(card):
-    for
+playable_cards = [i for i in range(1, 24)]
+
+def find_factors(card):
+    # finds the factors of a card
+    factors_list = []
+    for i in range(1, card):
+        if card % i == 0:
+            factors_list.append(i)
+    return factors_list
+
+if __name__ == '__main__':
+    print(playable_cards)
+    print(find_factors(10))
