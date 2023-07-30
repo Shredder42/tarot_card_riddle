@@ -16,11 +16,10 @@ program outline:
         * display socres and results
 '''
 
-playable_cards = [i for i in range(1, 24)]
+
 
 def pick_card(playable_cards):
     # allows player to pick a card
-    # updated to only allow if a factor exists
     choice = int(input('Pick a card from the list of playable cards: '))
     has_factor = determine_factors_present(choice, playable_cards)
     # print(determine_factors_present(choice, playable_cards))
@@ -39,14 +38,12 @@ def find_factors(card):
 
 def determine_factors_present(choice, playable_cards):
     factors_list = find_factors(choice)
-    # print(f'factors list: {factors_list}')
-    # print(f'playable_cards: {playable_cards}')
     for factor in factors_list:
         if factor in playable_cards:
             return True
     return False
 
-def update_player_score_and_cards(card, player_score, player_cords):
+def update_player_score_and_cards(card, player_score, player_cards):
     player_score += card
     player_cards.append(card)
     return player_score, player_cards
@@ -94,13 +91,8 @@ def game_result(player_score, player_cards, fate_score, fate_cards):
 
 
 
-
-
-
-# def check_for_factors(card, card_list):
-
-
-if __name__ == '__main__':
+def main():
+    playable_cards = [i for i in range(1, 24)]
     player_score = 0
     player_cards = []
     fate_score = 0
@@ -118,6 +110,11 @@ if __name__ == '__main__':
         factors_remain = determine_if_factors_remaining(playable_cards)
     fate_score, fate_cards = left_over_cards(playable_cards, fate_score, fate_cards)
     game_result(player_score, player_cards, fate_score, fate_cards)
+
+
+if __name__ == '__main__':
+    main()
+
 
 
 
