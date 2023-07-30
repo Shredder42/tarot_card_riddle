@@ -1,8 +1,5 @@
 '''
 program outline:
-* list of the cards 1-23
-* pick card from list
-* find factors function
 * check if card has any factors
     * if so
         * add card to player score and cards to player list
@@ -23,7 +20,9 @@ playable_cards = [i for i in range(1, 24)]
 
 def pick_card():
     # allows player to pick a card
-    return int(input('Pick a card from the list of playable cards: '))
+    # updated to only allow if a factor exists
+    choice = int(input('Pick a card from the list of playable cards: '))
+    return choice
 
 def find_factors(card):
     # finds the factors of a card
@@ -33,12 +32,13 @@ def find_factors(card):
             factors_list.append(i)
     return factors_list
 
-def update_player_score_and_cards(card, player_cards, player_score):
+def update_player_score_and_cards(card, player_score, player_cords):
     player_score += card
     player_cards.append(card)
     return player_score, player_cards
 
 def update_fate_cards_and_score(factors_list, fate_score, fate_cards):
+    # update this to only take cards from playable cards
     fate_score += sum(factors_list)
     fate_cards += factors_list
     return fate_score, fate_cards
@@ -46,27 +46,48 @@ def update_fate_cards_and_score(factors_list, fate_score, fate_cards):
 def remove_playable_cards(playable_cards, card, factors_list):
     playable_cards.remove(card)
     for item in factors_list:
-        playable_cards.remove(item)
+        if item in playable_cards:
+            playable_cards.remove(item)
     return playable_cards
 
 def print_playable_cards(playable_cards):
     print(f'Playable cards are: {playable_cards}')
+
+def determine_if_factors_remaining(playable_cards):
+    factors = False
+    for card in playable_cards:
+        temp_factors = find_factors(card)
+        for factor in temp_factors:
+            if factor in playable_cards:
+                factors = True
+                break
+    return factors
+
+
 
 
 # def check_for_factors(card, card_list):
 
 
 if __name__ == '__main__':
-    player_score = []
-    player_cards = 0
+    player_score = 0
+    player_cards = []
     fate_score = 0
     fate_cards = []
-    print_playable_cards(playable_cards)
-    card = pick_card()
-    factors_list = find_factors(card)
-    player_score, player_cards = update_player_score_and_cards(card, player_score, player_cards)
-    fate_score, fate_cards = update_fate_cards_and_score(factors_list, fate_score, fate_cards)
-    print(f'Player score: {player_score}. Player cards: {player_cards}')
-    print(f'Fate score: {fate_score}. Fate cards: {fate_cards}')
-    playable_cards = remove_playable_cards(playable_cards, card, factors_list)
-    print_playable_cards(playable_cards)
+    factors_remain = True
+    while factors_remain:
+        print_playable_cards(playable_cards)
+        card = pick_card()
+        print(type(card))
+        factors_list = find_factors(card)
+        player_score, player_cards = update_player_score_and_cards(card, player_score, player_cards)
+        fate_score, fate_cards = update_fate_cards_and_score(factors_list, fate_score, fate_cards)
+        print(f'Player score: {player_score}. Player cards: {player_cards}')
+        print(f'Fate score: {fate_score}. Fate cards: {fate_cards}')
+        playable_cards = remove_playable_cards(playable_cards, card, factors_list)
+        # print_playable_cards(playable_cards)
+        print(card)
+        factors_remain = determine_if_factors_remaining(playable_cards)
+
+
+
