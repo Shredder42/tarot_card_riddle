@@ -39,8 +39,10 @@ def update_player_score_and_cards(card, player_score, player_cords):
 
 def update_fate_cards_and_score(factors_list, fate_score, fate_cards):
     # update this to only take cards from playable cards
-    fate_score += sum(factors_list)
-    fate_cards += factors_list
+    for item in factors_list:
+        if item not in fate_cards:
+            fate_score += item
+            fate_cards.append(item)
     return fate_score, fate_cards
 
 def remove_playable_cards(playable_cards, card, factors_list):
@@ -62,6 +64,16 @@ def determine_if_factors_remaining(playable_cards):
                 factors = True
                 break
     return factors
+
+def game_result(player_score, player_cards, fate_score, fate_cards):
+    if player_score > fate_score:
+        print(f'You won! Your score: {player_score}: Fate score: {fate_score}')
+    else:
+        print(f'You lost! Your score: {player_score}: Fate score: {fate_score}')
+    print(f'You finished with these cards {player_cards}')
+    print(f'Fate finished with these cards: {fate_cards}')
+
+
 
 
 
@@ -88,6 +100,7 @@ if __name__ == '__main__':
         # print_playable_cards(playable_cards)
         print(card)
         factors_remain = determine_if_factors_remaining(playable_cards)
+    game_result(player_score, player_cards, fate_score, fate_cards)
 
 
 
