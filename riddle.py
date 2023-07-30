@@ -65,6 +65,12 @@ def determine_if_factors_remaining(playable_cards):
                 break
     return factors
 
+def left_over_cards(playable_cards, fate_score, fate_cards):
+    for item in playable_cards:
+        fate_score += item
+    fate_cards += playable_cards
+    return fate_score, fate_cards
+
 def game_result(player_score, player_cards, fate_score, fate_cards):
     if player_score > fate_score:
         print(f'You won! Your score: {player_score}: Fate score: {fate_score}')
@@ -100,6 +106,7 @@ if __name__ == '__main__':
         # print_playable_cards(playable_cards)
         print(card)
         factors_remain = determine_if_factors_remaining(playable_cards)
+    fate_score, fate_cards = left_over_cards(playable_cards, fate_score, fate_cards)
     game_result(player_score, player_cards, fate_score, fate_cards)
 
 
