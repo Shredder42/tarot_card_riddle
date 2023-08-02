@@ -104,20 +104,32 @@ def game_result(player_score, player_cards, fate_score, fate_cards):
         if 10 in player_cards:
             print('You claimed the Wheel of Fortune and will soon receive unimaginable riches!')
     else:
-        print(f'You lost! Your score: {player_score}: Fate score: {fate_score}')
+        print(f'You lost and Fate took your soul! \nYour score: {player_score}: Fate score: {fate_score}')
         print(f'You finished with these cards {player_cards}')
         print(f'Fate finished with these cards: {fate_cards}')
 
+def track_stats(player_score, fate_score, player_wins, fate_wins):
+    if player_score > fate_score:
+        player_wins += 1
+    else:
+        fate_wins += 1
+    print(f'Player wins {player_wins}. Fate wins {fate_wins}')
+    return player_wins, fate_wins
 
 
 def main():
+    player_wins = 0
+    fate_wins = 0
     play = True
     while play:
         playable_cards, player_score, player_cards, fate_score, fate_cards = reset_game()
         factors_remain = True
         while factors_remain:
+            print()
             print_playable_cards(playable_cards)
+            print()
             card = pick_card(playable_cards)
+            print()
             factors_list = find_factors(card)
             player_score, player_cards = update_player_score_and_cards(card, player_score, player_cards)
             fate_score, fate_cards = update_fate_cards_and_score(factors_list, fate_score, fate_cards)
@@ -126,9 +138,12 @@ def main():
             playable_cards = remove_playable_cards(playable_cards, card, factors_list)
             factors_remain = determine_if_factors_remaining(playable_cards)
         fate_score, fate_cards = left_over_cards(playable_cards, fate_score, fate_cards)
+        print()
         game_result(player_score, player_cards, fate_score, fate_cards)
+        print()
+        player_wins, fate_wins = track_stats(player_score, fate_score, player_wins, fate_wins)
+        print()
         play = ask_to_play_again()
-
 
 if __name__ == '__main__':
     main()
