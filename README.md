@@ -1,4 +1,4 @@
-# tarot_card_riddle
+# Tarot Card Riddle
 Solving The Tarot Card Riddle
 
 This program creates a playable game of the Tarot Card Riddle as seen in the TedEd video linked below.
